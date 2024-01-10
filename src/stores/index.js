@@ -1,4 +1,4 @@
-import { defineStore, mapActions } from 'pinia'
+import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore("counter", {
   state(){
@@ -20,6 +20,6 @@ export const useCounterStore = defineStore("counter", {
     }
   },
   getters: {
-    getModuleByCode: (state) => (code) => this.modules.find((item) => item.code === code);
+    getModuleByCode: (state) => (code) => this.state.modules.filter((item) => item.code === code),
   }
 });

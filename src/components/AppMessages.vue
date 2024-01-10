@@ -1,6 +1,5 @@
 <script>
 import store from "../store/"
-import { computed } from 'vue'
 
 export default {
   computed: {

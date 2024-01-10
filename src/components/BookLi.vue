@@ -2,8 +2,6 @@
 import BooksRepository from '@/repositories/books.repository.js';
 import BookItem from './BookItem.vue';
 import router from '@/router/index.js';
-import { useStore } from '@/stores/index.js';
-import { mapActions } from 'pinia'
 
 export default {
   data() {
@@ -15,26 +13,24 @@ export default {
     BookItem
   },
   async mounted() {
-    const booksRepository = new BooksRepository()
+    const booksRepository = new BooksRepository();
     try {
-      this.books = await booksRepository.getAllBooks()
-    } catch (e) {
-      alert(e)
+      this.books = await booksRepository.getAllBooks();
+    } catch (error) {
+      alert(error);
     }
   },
   methods :{
+    //...mapActions(useStore, ['setMessageAction']);
     router() {
-      return router
+      return router;
     },
-    ...mapActions(useStore, ['setMessageAction']);
-    async delBook() {
-      const booksRepository = new BooksRepository()
+    async delBook(book) {
+      const booksRepository = new BooksRepository();
       if (
-        confirm(
-          'Desea borrar el libro con id: ' + this.book.id + ' y módulo: ' + this.book.idModule
-        )
+        confirm('Desea borrar el libro con id: ' + book.id + ' y módulo: ' + book.idModule)
       ) {
-        await booksRepository.removeBook(this.book.id);
+        await booksRepository.removeBook(book.id);
       }
     }
   }
@@ -45,10 +41,10 @@ export default {
   <div id="list">
     <book-item v-for="book in books" v-bind:book="book">
     <div>
-      <button @click="router().push('/editBookForm/:id', book.id)" id="edit-{{book.id}}">
+      <button @click="router().push({name: 'editBookForm', params: {id: book.id}})" id="edit-{{book.id}}">
         <span class="material-icons">edit</span> Editar
       </button>
-      <button @click="delBook" id="remove-{{book.id}}">
+      <button @click="delBook(book)" id="remove-{{book.id}}">
         <span class="material-icons">delete</span> Eliminar
       </button>
     </div>

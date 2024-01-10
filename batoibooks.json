@@ -1869,17 +1869,7 @@
       "price": 12,
       "pages": 12,
       "status": "bad",
-      "comments": "Buen libro",
-      "id": 17
-    },
-    {
-      "idUser": 2,
-      "publisher": "Andreu",
-      "idModule": "0014",
-      "price": 12,
-      "pages": 12,
-      "status": "bad",
-      "comments": "Buen libro",
+      "comments": "Buen libr",
       "id": 18
     },
     {
