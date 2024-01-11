@@ -1,5 +1,6 @@
 <script>
 import BooksRepository from '@/repositories/books.repository.js'
+import { useCounterStore } from '@/stores/index.js'
 
 export default {
   props: {
@@ -13,10 +14,18 @@ export default {
     }
   },
   methods: {
+    addMessage(text){
+      const counterStore = useCounterStore();
+      counterStore.addMessage(text);
+    },
     async delBook() {
       if (confirm("Quieres borrar este libro con id " + this.idBook + " y con modulo " + this.idModule + "?")) {
-        const repository = new BooksRepository();
-        await repository.removeBook(this.idBook);
+        try{
+          const repository = new BooksRepository();
+          await repository.removeBook(this.idBook);
+        } catch (error){
+          this.addMessage(error);
+        }
       }
     }
   }

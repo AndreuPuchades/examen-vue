@@ -6,8 +6,7 @@ export default class BooksRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async getBookFromModuleAndUser(idUser, idModule) {
@@ -24,8 +23,7 @@ export default class BooksRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async addBook(book) {
@@ -42,8 +40,7 @@ export default class BooksRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async changeBook(book) {
@@ -57,23 +54,6 @@ export default class BooksRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const data = await response.json()
-    return data
-  }
-
-  async updatePriceOfBook(idBook, newPrice) {
-    const dataNew = { price: newPrice }
-    const response = await fetch(server + `/books/${idBook}`, {
-      method: 'PATCH',
-      body: JSON.stringify(dataNew),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    })
-    if (!response.ok) {
-      throw `Error ${response.status} de la BBDD: ${response.statusText}`
-    }
-    const data = await response.json()
-    return (data.price = newPrice)
+    return await response.json()
   }
 }

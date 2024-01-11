@@ -1828,11 +1828,11 @@
   ],
   "sales": [
     {
-      "id": 1,
       "idBook": 1,
-      "idUser": 2,
-      "date": "2023-03-01",
-      "status": 0
+      "idUser": 1,
+      "date": "2024-1-11",
+      "status": 0,
+      "id": 1
     }
   ],
   "users": [
@@ -1863,70 +1863,31 @@
   ],
   "books": [
     {
-      "idUser": 2,
+      "idModule": "0018",
       "publisher": "Andreu",
-      "idModule": "0014",
       "price": 12,
-      "pages": 12,
-      "status": "bad",
-      "comments": "Buen libr",
-      "id": 18
+      "pages": 122,
+      "status": "new",
+      "comments": "Hola",
+      "id": 1
     },
     {
-      "idUser": 2,
-      "publisher": "Hola",
-      "idModule": "",
-      "price": 1,
-      "pages": 1,
-      "status": "bad",
-      "comments": "as",
-      "id": 19
-    },
-    {
-      "idUser": 2,
-      "publisher": "asd",
-      "idModule": "0014",
+      "idModule": "0018",
+      "publisher": "Doha",
       "price": 11,
-      "pages": 1,
-      "status": "bad",
-      "comments": "asd",
-      "id": 20
+      "pages": 22,
+      "status": "new",
+      "comments": "",
+      "id": 2
     },
     {
       "idModule": "0020",
-      "publisher": "AndreuP",
-      "price": 1,
-      "pages": 2,
+      "publisher": "Andy",
+      "price": 12,
+      "pages": 33,
       "status": "new",
       "comments": "Hola",
-      "id": 21
-    },
-    {
-      "idModule": "0020",
-      "publisher": "AndreuP",
-      "price": 1,
-      "pages": 2,
-      "status": "new",
-      "comments": "Hola",
-      "id": 22
-    },
-    {
-      "idModule": "0020",
-      "publisher": "AndreuP",
-      "price": 1,
-      "pages": 2,
-      "status": "new",
-      "comments": "Hola",
-      "id": 23
-    },
-    {
-      "idModule": "0020",
-      "publisher": "AndreuPP",
-      "price": 1,
-      "pages": 2,
-      "status": "new",
-      "comments": "Hola",
-      "id": 24
+      "id": 3
     }
   ]
 }

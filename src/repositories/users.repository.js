@@ -6,8 +6,7 @@ export default class UsersRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async getUserById(idUser) {
@@ -15,8 +14,7 @@ export default class UsersRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async addUser(user) {
@@ -33,8 +31,7 @@ export default class UsersRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async changeUser(user) {
@@ -46,8 +43,7 @@ export default class UsersRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const data = await response.json()
-    return data
+    return await response.json()
   }
 
   async updateUserPassword(idUser, newPassword) {

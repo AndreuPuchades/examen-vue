@@ -6,8 +6,7 @@ export default class ModulesRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async getModuleById(idModule) {
@@ -15,8 +14,7 @@ export default class ModulesRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async addModule(module) {
@@ -33,8 +31,7 @@ export default class ModulesRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const myData = await response.json()
-    return myData
+    return await response.json()
   }
 
   async changeModule(module) {
@@ -46,7 +43,6 @@ export default class ModulesRepository {
     if (!response.ok) {
       throw `Error ${response.status} de la BBDD: ${response.statusText}`
     }
-    const data = await response.json()
-    return data
+    return await response.json()
   }
 }

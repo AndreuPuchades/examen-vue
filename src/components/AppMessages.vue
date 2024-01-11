@@ -1,16 +1,16 @@
 <script>
-import store from "../store/"
+import { mapState } from 'pinia'
+import { useCounterStore } from '@/stores/index.js'
 
 export default {
   computed: {
-    todos() {
-      return store.state.todos;
-    }
+    ...mapState(useCounterStore, {
+      messages: 'messages',
+    })
   },
   methods: {
-    closeAlert(item) {
-      this.visible = false;
-      store.method.delBook(item);
+    closeAlert(text) {
+      useCounterStore().deleteMessage(text);
     }
   },
 }
@@ -18,9 +18,11 @@ export default {
 
 <template>
   <div id="message">
-      <div v-for="item in todos" class="alert alert-danger alert-dismissible" >
-        {{ item.message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" @click="closeAlert(item)">X</button>
+      <div v-for="message in messages" class="alert alert-danger alert-dismissible" >
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" @click="closeAlert(message)">
+          <span class="material-icons">close</span>
+        </button>
       </div>
   </div>
 </template>

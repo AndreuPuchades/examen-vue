@@ -1,4 +1,6 @@
 <script>
+import { useCounterStore } from '@/stores/index.js'
+
 export default {
   props: {
     book: {
@@ -7,7 +9,15 @@ export default {
     }
   },
   methods: {
-
+    getModuleById(code){
+      useCounterStore().loadModules();
+      const modulo = useCounterStore().getModuleById(code);
+      if(modulo){
+        return modulo.cliteral;
+      } else {
+        return "No hay modulo";
+      }
+    }
   }
 }
 </script>
@@ -17,11 +27,11 @@ export default {
     <h2>{{ book.publisher }}</h2>
     <h3>Id: {{ book.id }}</h3>
     <h3>Editorial: {{ book.publisher }}</h3>
-    <h3>IdModule: {{ book.idModule }}</h3>
-    <h3>Precio: {{ book.price }}</h3>
+    <h3>Module: {{ getModuleById(book.idModule) }}</h3>
+    <h3>Precio: {{ book.price }} €</h3>
     <h3>Paginas: {{ book.pages }}</h3>
     <h3>Estado: {{ book.status }}</h3>
-    <h3>Comentario: {{ book.comments }}</h3>
+    <h3>Comentario: {{ book.comments ? book.comments : "No hay comentarios" }}</h3>
     <slot><div></div></slot>
   </div>
 </template>
