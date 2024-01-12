@@ -40,5 +40,6 @@ export const useCounterStore = defineStore("counter", {
   },
   getters: {
     getModuleById: (state) => (code) => state.modules.find((item) => item.code === code),
+    getBookByIdBookFromCart: (state) => (idBook) => state.cart.find((item) => item.id === idBook),
   }
 });

@@ -1,7 +1,7 @@
 <script>
 import BooksRepository from '@/repositories/books.repository.js'
 import { mapState } from 'pinia';
-import { useCounterStore } from '../stores/index.js';
+import { useCounterStore } from '../../stores/index.js';
 
 let bookDefault = {
     idModule: '',
@@ -20,7 +20,6 @@ export default {
     }
   },
   mounted() {
-    useCounterStore().loadModules();
     if(this.id){
       this.loadBook();
     } else {

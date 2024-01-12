@@ -1,7 +1,7 @@
 <script>
-import AppFooter from '@/components/AppFooter.vue'
-import AppMenu from '@/components/AppMenu.vue'
-import AppMessages from '@/components/AppMessages.vue'
+import AppFooter from '@/components/views/AppFooter.vue'
+import AppMenu from '@/components/utils/AppMenu.vue'
+import AppMessages from '@/components/utils/AppMessages.vue'
 import { defineComponent } from 'vue'
 
 export default defineComponent({

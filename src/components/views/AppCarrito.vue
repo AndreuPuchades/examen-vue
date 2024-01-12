@@ -5,11 +5,19 @@ import { mapState } from 'pinia'
 import SalesRepository from '@/repositories/sales.repository.js'
 
 export default {
+  data() {
+    return {
+      sales: [],
+    };
+  },
   components: { BookItem },
   computed: {
     ...mapState(useCounterStore, {
       cart: 'cart',
     })
+  },
+  created() {
+    this.loadSales();
   },
   methods:{
     deleteBookFromCart(idBook){
@@ -25,6 +33,7 @@ export default {
           });
           useCounterStore().clearCart();
           useCounterStore().addMessage("La compra de los libros se ha realizado");
+          this.$router.push("/compras");
         } else {
           useCounterStore().addMessage("La cesta esta vacia, no se puede realizar la compra");
         }
@@ -32,18 +41,13 @@ export default {
         useCounterStore().addMessage(error);
       }
     },
-    deleteBookFromSale(idBook){
-      try{
+    async loadSales() {
+      try {
         const salesRepository = new SalesRepository();
-        salesRepository.removeSaleByIdBook(idBook);
-        useCounterStore().addMessage("Se ha borrado el libro con id \"" + idBook + "\" de los libros comprados");
-      } catch (error){
+        this.sales = await salesRepository.getSalesByIdUser(1);
+      } catch (error) {
         useCounterStore().addMessage(error);
       }
-    },
-    getSaleByIdUser(){
-      const salesRepository = new SalesRepository();
-      return  salesRepository.getSalesByIdUser(1);
     },
     getTotalPrecio(){
       let precioTotal = 0;
@@ -55,7 +59,8 @@ export default {
     },
     clearCart(){
       useCounterStore().clearCart();
-      useCounterStore().addMessage("Se ha vaciado el carrito");
+      useCounterStore().addMessage("Se ha vaciado el carrito correctamente");
+      this.$router.push("/");
     },
     getFechaActualWithFormat() {
       const fechaActual = new Date();
@@ -68,7 +73,6 @@ export default {
 <template>
   <div id="carrito">
     <h1>Carrito</h1>
-
     <div id="carrito-list">
       <book-item v-for="book in cart" v-bind:book="book">
         <div>
@@ -78,7 +82,6 @@ export default {
         </div>
       </book-item>
     </div>
-
     <h2>Total Unidades: {{cart.length}}</h2>
     <h2>Total Precio: {{this.getTotalPrecio()}} €</h2>
     <button @click="this.clearCart()" id="remove-cart-{{book.id}}">
@@ -87,17 +90,6 @@ export default {
     <button @click="this.saveCart()" id="remove-cart-{{book.id}}">
       <span class="material-icons">shopping_cart_checkout</span>
     </button>
-    <br><br><br><br>
-    <h1>Libros Comprados</h1>
-    <div id="carrito-list">
-      <book-item v-for="book in getSaleByIdUser()" v-bind:book="book">
-        <div>
-          <button @click="this.deleteBookFromSale(book.id)" id="remove-cart-{{book.id}}">
-            <span class="material-icons">remove_shopping_cart</span>
-          </button>
-        </div>
-      </book-item>
-    </div>
   </div>
 </template>
 
@@ -135,8 +127,7 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-button[type='submit']:hover,
-button[type='reset']:hover {
+button:hover {
   background-color: #555;
 }
 </style>

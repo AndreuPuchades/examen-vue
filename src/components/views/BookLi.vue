@@ -1,9 +1,10 @@
 <script>
 import BooksRepository from '@/repositories/books.repository.js'
-import BookItem from './BookItem.vue'
+import BookItem from '../utils/BookItem.vue'
 import router from '@/router/index.js'
 import { useCounterStore } from '@/stores/index.js'
 import SalesRepository from '@/repositories/sales.repository.js'
+import { mapState } from 'pinia'
 
 export default {
   data() {
@@ -11,11 +12,17 @@ export default {
       books: []
     }
   },
+  computed: {
+    ...mapState(useCounterStore, {
+      cart: 'cart',
+    })
+  },
   components: {
     BookItem
   },
   async mounted() {
     try {
+      await useCounterStore().loadModules();
       const booksRepository = new BooksRepository();
       this.books = await booksRepository.getAllBooks();
     } catch (error) {
@@ -23,10 +30,17 @@ export default {
     }
   },
   methods: {
+    isOnCart(idBook){
+      const book = useCounterStore().getBookByIdBookFromCart(idBook);
+      return book !== undefined;
+    },
     async isSold(idBook) {
-      const salesRepository = new SalesRepository();
-      const book = await salesRepository.getSalesByIdBook(idBook);
-      return book;
+      try {
+        const salesRepository = new SalesRepository();
+        return await salesRepository.getSalesByIdBook(idBook);
+      } catch (error) {
+        useCounterStore().addMessage(error);
+      }
     },
     addMessage(text){
       useCounterStore().addMessage(text);
@@ -56,11 +70,8 @@ export default {
 <template>
   <div id="list">
     <book-item v-for="book in books" v-bind:book="book">
-      <div v-if="isSold(book.id)">
-        <p>Este libro ya esta vendido</p>
-      </div>
-      <div v-else>
-        <button @click="addBookFromCart(book)" id="add-cart-{{ book.id }}">
+      <div>
+        <button @click="addBookFromCart(book)" id="add-cart-{{ book.id }}" :hidden="isOnCart(book.id)" >
           <span class="material-icons">shopping_cart</span>
         </button>
         <button @click="router().push({name: 'editBookForm', params: {id: book.id}})" id="edit-{{ book.id }}">
@@ -97,6 +108,10 @@ h2 {
   font-size: 1.5em;
 }
 
+p{
+  color: red;
+}
+
 button {
   border: none;
   cursor: pointer;
@@ -108,5 +123,7 @@ button {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
+button:hover {
+  background-color: #555;
+}
 </style>

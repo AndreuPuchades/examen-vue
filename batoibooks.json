@@ -1828,11 +1828,25 @@
   ],
   "sales": [
     {
-      "idBook": 1,
+      "idBook": 3,
       "idUser": 1,
-      "date": "2024-1-11",
+      "date": "2024-1-12",
       "status": 0,
       "id": 1
+    },
+    {
+      "idBook": 2,
+      "idUser": 1,
+      "date": "2024-1-12",
+      "status": 0,
+      "id": 2
+    },
+    {
+      "idBook": 1,
+      "idUser": 1,
+      "date": "2024-1-12",
+      "status": 0,
+      "id": 3
     }
   ],
   "users": [
@@ -1865,7 +1879,7 @@
     {
       "idModule": "0018",
       "publisher": "Andreu",
-      "price": 12,
+      "price": 8,
       "pages": 122,
       "status": "new",
       "comments": "Hola",
@@ -1874,7 +1888,7 @@
     {
       "idModule": "0018",
       "publisher": "Doha",
-      "price": 11,
+      "price": 25,
       "pages": 22,
       "status": "new",
       "comments": "",

@@ -1,16 +1,29 @@
 <script>
 import { useCounterStore } from '@/stores/index.js'
+import BooksRepository from '@/repositories/books.repository.js'
 
 export default {
+  data (){
+    return {
+      book : {}
+    }
+  },
   props: {
-    book: {
+    sale: {
       type: Object,
       required: true
     }
   },
+  async created() {
+    try {
+      const bookRepository = new BooksRepository();
+      this.book = await bookRepository.getBookById(this.sale.idBook);
+    } catch (error) {
+      useCounterStore().addMessage(error);
+    }
+  },
   methods: {
     getModuleById(code){
-      useCounterStore().loadModules();
       const modulo = useCounterStore().getModuleById(code);
       if(modulo){
         return modulo.cliteral;
@@ -23,15 +36,13 @@ export default {
 </script>
 
 <template>
-  <div :id="'book-' + book.id" class="book">
-    <h2>{{ book.publisher }}</h2>
-    <h3>Id: {{ book.id }}</h3>
-    <h3>Editorial: {{ book.publisher }}</h3>
-    <h3>Module: {{ getModuleById(book.idModule) }}</h3>
-    <h3>Precio: {{ book.price }} €</h3>
-    <h3>Paginas: {{ book.pages }}</h3>
-    <h3>Estado: {{ book.status }}</h3>
-    <h3>Comentario: {{ book.comments ? book.comments : "No hay comentarios" }}</h3>
+  <div :id="'sale-' + sale.id" class="sale">
+    <h2>{{ sale.id }}</h2>
+    <h3>Book: ({{ sale.idBook }})</h3>
+    <h4>Editorial: {{ book.publisher }}</h4>
+    <h4>Module: {{ getModuleById(book.idModule) }}</h4>
+    <h4>Precio: {{ book.price }} €</h4>
+    <h3>Fecha de venta: {{ sale.date }}</h3>
     <slot><div></div></slot>
   </div>
 </template>
@@ -44,7 +55,7 @@ export default {
   padding: 20px;
 }
 
-.book {
+.sale {
   border: 1px solid #ccc;
   padding: 10px;
   background-color: #fff;

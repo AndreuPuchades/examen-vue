@@ -8,6 +8,7 @@ export default {}
       <li><a><RouterLink :to="{name: 'inicio'}">Ver Libros</RouterLink></a></li>
       <li><a><RouterLink :to="{name: 'bookForm'}">Añadir Libro</RouterLink></a></li>
       <li><a><RouterLink :to="{name: 'carrito'}">Carrito</RouterLink></a></li>
+      <li><a><RouterLink :to="{name: 'compras'}">Mis Compras</RouterLink></a></li>
       <li><a><RouterLink :to="{name: 'about'}">Acerca de...</RouterLink></a></li>
     </ul>
   </nav>
