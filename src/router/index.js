@@ -3,7 +3,7 @@ import BooksList from '../components/views/BookLi.vue'
 import BookForm from '../components/views/BookForm.vue'
 import AppCarrito from '../components/views/AppCarrito.vue'
 import AppAbout from '../components/views/AppAbout.vue'
-import AppCompras from '@/components/utils/AppCompras.vue'
+import AppCompras from '../components/utils/AppCompras.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

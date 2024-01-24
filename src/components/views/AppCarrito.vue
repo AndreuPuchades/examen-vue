@@ -1,6 +1,6 @@
 <script>
 import { useCounterStore } from '@/stores/index.js'
-import BookItem from '@/components/BookItem.vue'
+import BookItem from '../utils/BookItem.vue'
 import { mapState } from 'pinia'
 import SalesRepository from '@/repositories/sales.repository.js'
 

@@ -1,7 +1,10 @@
 <script>
 import BooksRepository from '@/repositories/books.repository.js'
 import { mapState } from 'pinia';
-import { useCounterStore } from '../../stores/index.js';
+import { useCounterStore } from '@/stores/index.js';
+import * as yup from 'yup';
+import { setLocale } from 'yup';
+import { Form, Field, ErrorMessage } from "vee-validate";
 
 let bookDefault = {
     idModule: '',
@@ -12,10 +15,34 @@ let bookDefault = {
     comments: '',
   };
 
+setLocale({
+  mixed: {
+    default: 'Campo no válido',
+    required: 'El campo ${path} no puede estar vacío'
+  },
+  string: {
+    min: 'El campo ${path} debe tener al menos ${min} caracteres',
+    max: 'El campo del campo debe ser mayor que ${max}'
+  },
+  number: {
+    min: 'El valor del campo debe ser mayor que ${min}',
+    max: 'El valor del campo debe ser mayor que ${max}'
+  }
+});
+
 export default {
+  components: { Form, Field, ErrorMessage },
   props: ['id'],
   data() {
+    const mySchema = yup.object({
+      publisher: yup.string().required().min(1).max(999999999),
+      price: yup.string().required().min(0).max(999999999),
+      pages: yup.string().required().min(1).max(999999999),
+      idModule: yup.string().required(),
+      status: yup.string().required(),
+    })
     return {
+      mySchema,
       book: bookDefault,
     }
   },
@@ -43,7 +70,7 @@ export default {
         this.addMessage(error);
       }
     },
-    async submitForm() {
+    async handleSubmit() {
       try {
         const booksRepository = new BooksRepository();
         if (this.isEditing()) {
@@ -63,7 +90,7 @@ export default {
     isEditing() {
       return !!this.id;
     },
-    resetForm() {
+    handleReset() {
       if(this.isEditing()){
         this.loadBook();
       } else {
@@ -76,39 +103,39 @@ export default {
 
 <template>
   <div id="form">
-    <form id="bookForm" @submit.prevent="submitForm" novalidate>
+    <Form @submit="handleSubmit" @reset="handleReset" :validation-schema="mySchema">
       <div>
-        <label for="id-module">Módulo:</label>
-        <select name="id-module" v-model="book.idModule" required>
+        <label for="idModule">Módulo:</label>
+        <select name="idModule" v-model="book.idModule" required>
           <option value="" disabled>- Selecciona un módulo -</option>
-          <option v-for="module in modules" :key="module.code" :value="module.code">
+          <option v-for="module in modules" name="idModule" :key="module.code" :value="module.code">
             {{ module.cliteral }}
           </option>
         </select>
         <br />
-        <span class="error">{{  }}</span>
+        <ErrorMessage name="idModule" class="error">{{  }}</ErrorMessage>
         <br />
       </div>
 
       <div id="editorial">
         <label for="publisher">Editorial:</label>
-        <input type="text" v-model="book.publisher" class="publisher" required />
+        <Field type="text" name="publisher" v-model="book.publisher" class="publisher" required />
         <br />
-        <span class="error">{{  }}</span>
+        <ErrorMessage name="publisher" class="error">{{  }}</ErrorMessage>
       </div>
 
       <div id="precio">
         <label for="price">Precio:</label>
-        <input type="number" v-model="book.price" min="0" step="0.01" required />
+        <Field type="number" name="price" v-model="book.price" min="0" step="0.01" required />
         <br />
-        <span class="error">{{  }}</span>
+        <ErrorMessage name="price" class="error">{{  }}</ErrorMessage>
       </div>
 
       <div id="paginas">
         <label for="pages">Páginas:</label>
-        <input type="number" v-model="book.pages" min="0" required />
+        <Field type="number" name="pages" v-model="book.pages" min="0" required />
         <br />
-        <span class="error">{{  }}</span>
+        <ErrorMessage name="pages" class="error">{{  }}</ErrorMessage>
       </div>
 
       <div id="status">
@@ -120,20 +147,19 @@ export default {
         <label id="usado" name="status">Usado</label>
         <input type="radio" v-model="book.status" name="status" value="usado" />
         <br />
-        <span class="error">{{  }}</span>
+        <ErrorMessage class="error">{{  }}</ErrorMessage>
       </div>
 
       <div id="comentarios">
         <label for="comments">Comentario:</label>
-        <input type="text" v-model="book.comments" class="comments" />
+        <Field type="text" name="comments" v-model="book.comments" class="comments" />
         <br />
-        <span class="error">{{  }}</span>
       </div>
       <input type="hidden" v-model="book.id" />
-      <br />
+      <br/>
 
       <button type="submit">{{ isEditing ? 'Guardar' : 'Añadir' }}</button>
-      <button type="reset" @click="resetForm">Reset</button>
+      <button type="reset">Reset</button>
     </form>
   </div>
 </template>

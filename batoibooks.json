@@ -1847,6 +1847,13 @@
       "date": "2024-1-12",
       "status": 0,
       "id": 3
+    },
+    {
+      "idBook": 2,
+      "idUser": 1,
+      "date": "2024-1-24",
+      "status": 0,
+      "id": 4
     }
   ],
   "users": [
