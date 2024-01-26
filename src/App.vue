@@ -1,14 +1,21 @@
 <script>
 import AppFooter from '@/components/views/AppFooter.vue'
 import AppMenu from '@/components/utils/AppMenu.vue'
-import AppMessages from '@/components/utils/AppMessages.vue'
 import { defineComponent } from 'vue'
+import { mapActions } from 'pinia'
+import { useStore } from '@/stores/index.js'
 
 export default defineComponent({
   components: {
-    AppMessages,
     AppMenu,
     AppFooter,
+  },
+  mounted() {
+    this.loadCategorias();
+    this.loadPlataformas()
+  },
+  methods: {
+    ...mapActions(useStore, ['loadCategorias', 'loadPlataformas']),
   }
 })
 </script>
@@ -19,11 +26,12 @@ export default defineComponent({
   </header>
 
   <AppMenu></AppMenu>
-  <AppMessages></AppMessages>
   <AppFooter></AppFooter>
 </template>
 
 <style>
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css');
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -40,19 +48,10 @@ header {
   text-align: center;
 }
 
-.logo {
-  width: 100px;
-  height: auto;
-}
-
 h1 {
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 10px;
-}
-
-.oculto {
-  display: none !important;
 }
 
 span.error {

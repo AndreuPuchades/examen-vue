@@ -4,7 +4,7 @@ export default {}
 
 <template>
   <footer>
-    <p>Andreu Puchades Pascual</p>
+    <p>GesGAME | Andreu Puchades Pascual</p>
   </footer>
 </template>
 

@@ -1,43 +1,54 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import BooksList from '../components/views/BookLi.vue'
-import BookForm from '../components/views/BookForm.vue'
-import AppCarrito from '../components/views/AppCarrito.vue'
-import AppAbout from '../components/views/AppAbout.vue'
-import AppCompras from '../components/utils/AppCompras.vue'
+import CategoriesView from '@/components/views/CategoriesView.vue'
+import GameForm from '@/components/views/GameForm.vue'
+import OrderView from '@/components/views/OrderView.vue'
+import GameView from '@/components/views/GameView.vue'
+import PlataformasView from '@/components/views/PlataformasView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'inicio',
-      component: BooksList
+      name: 'home',
+      component: GameView
     },
     {
-      path: '/about',
-      name: 'about',
-      component: AppAbout
+      path: '/plataformas',
+      name: 'plataformas',
+      component: PlataformasView
     },
     {
-      path: '/bookForm',
-      name: 'bookForm',
-      component: BookForm
+      path: '/categorias',
+      name: 'categorias',
+      component: CategoriesView
     },
     {
-      path: '/carrito',
-      name: 'carrito',
-      component: AppCarrito
+      path: '/juegos',
+      name: 'juegos',
+      component: GameView
     },
     {
-      path: '/compras',
-      name: 'compras',
-      component: AppCompras
-    },
-    {
-      path: '/editBookForm/:id',
-      name: 'editBookForm',
-      component: BookForm,
+      path: '/juegos/:nombre/:id',
+      name: 'juegos-by',
+      component: GameView,
       props: true
+    },
+    {
+      path: '/nuevoJuego',
+      name: 'nuevoJuego',
+      component: GameForm
+    },
+    {
+      path: '/juegos-edit/:id',
+      name: 'juegos-edit',
+      component: GameForm,
+      props: true
+    },
+    {
+      path: '/pedidos',
+      name: 'pedidos',
+      component: OrderView
     }
   ]
 });

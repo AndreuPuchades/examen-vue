@@ -5,11 +5,11 @@ export default {}
 <template>
   <nav>
     <ul>
-      <li><a><RouterLink :to="{name: 'inicio'}">Ver Libros</RouterLink></a></li>
-      <li><a><RouterLink :to="{name: 'bookForm'}">Añadir Libro</RouterLink></a></li>
-      <li><a><RouterLink :to="{name: 'carrito'}">Carrito</RouterLink></a></li>
-      <li><a><RouterLink :to="{name: 'compras'}">Mis Compras</RouterLink></a></li>
-      <li><a><RouterLink :to="{name: 'about'}">Acerca de...</RouterLink></a></li>
+      <li><a><RouterLink :to="{name: 'home'}">Home</RouterLink></a></li>
+      <li><a><RouterLink :to="{name: 'plataformas'}">Plataformas</RouterLink></a></li>
+      <li><a><RouterLink :to="{name: 'categorias'}">Categorias</RouterLink></a></li>
+      <li><a><RouterLink :to="{name: 'nuevoJuego'}">Nuevo Juego</RouterLink></a></li>
+      <li><a><RouterLink :to="{name: 'pedidos'}">Pedido</RouterLink></a></li>
     </ul>
   </nav>
   <RouterView/>

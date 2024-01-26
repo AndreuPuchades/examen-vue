@@ -37,14 +37,6 @@
   ],
   "juegos": [
     {
-      "id": 1,
-      "nombre": "Final Fantasy XIV",
-      "descrip": "Final Fantasy XIV: Shadowbringers es una nueva expansión de contenido para el juego de rol multijugador de Square Enix de consolas y PC. Shadowbringers es la tercera expansión de Final Fantasy XIV y aumenta el límite de nivel hasta 80, incluyendo como es habitual una nueva y elaborada historia y nuevos escenarios. También cuenta clases nuevas, como los Gunbreakers, la primera clase anunciada, portadores de espadas pistola, como la que vimos de Squall en Final Fantasy VIII. Esta clase cumple el rol de tanque en los equipos.",
-      "plataforma": 1,
-      "categoria": 2,
-      "img": "final-fantasy-xiv-shadowbringers-201962810522476_1b.jpg"
-    },
-    {
       "id": 3,
       "nombre": "Battlefield 1",
       "descrip": "Battlefield 1, es una nueva entrega de la saga emblemática saga de acción en primera persona, que en esta ocasión estará ambientado en la Primera Guerra Mundial. El título, gracias al motor gráfico Frostbite, ofrecerá una perspectiva realista del conflicto que asoló el mundo a comienzos del siglo pasado, invitándonos a combatir en algunos escenarios de Francia o el norte de África. Una vez más, Battlefield 1 potenciará el uso de vehículos, como carros blindados, aviones y dirigibles, diversos modos de juego, un gran componente online gracias a las batallas masivas de hasta 64 jugadores y un novedoso sistema de tiempo y climatología que dinamizará las partidas en todo momento.",
@@ -109,11 +101,13 @@
       "img": "wormis-the-game-201653192552_6b.jpg"
     },
     {
-      "nombre": "prueba2",
-      "descrip": "asd asdasda",
-      "categoria": 1,
-      "plataforma": 1,
       "id": 12
+    },
+    {
+      "id": 13
+    },
+    {
+      "id": 14
     }
   ]
 }

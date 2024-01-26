@@ -1,22 +1,30 @@
 <script>
+import { mapState } from 'pinia'
+import { useStore } from '@/stores/index.js'
+
 export default {
   props: {
-    category: {
+    juego: {
       type: Object,
       required: true
     }
-  }
+  },
+  computed: {
+    ...mapState(useStore, ['getCategoriaByCode', 'getPlataformaByCode']),
+  },
 }
 </script>
 
 <template>
-  <div :id="'category-' + category.id" class="category">
     <tr>
-      <th>{{ category.id }}</th>
-      <th>{{ category.nombre }}</th>
+      <td>{{ juego.img }}</td>
+      <th>{{ juego.id }}</th>
+      <th>{{ juego.nombre }}</th>
+      <th>{{ juego.descrip }}</th>
+      <th>{{ this.getPlataformaByCode(juego.plataforma).nombre }}</th>
+      <th>{{ this.getCategoriaByCode(juego.categoria).nombre }}</th>
       <th><slot><button></button></slot></th>
     </tr>
-  </div>
 </template>
 
 <style scoped>
