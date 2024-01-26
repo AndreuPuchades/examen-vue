@@ -1,45 +1,37 @@
 import { defineStore } from 'pinia'
-import ModulesRepository from '@/repositories/modules.repository.js'
+import TiposRepository from '../repositories/tipos.repository.js'
 
-export const useCounterStore = defineStore("counter", {
-  state(){
-    return{
+export const useStore = defineStore('store', {
+  state() {
+    return {
       messages: [],
-      modules: [],
-      cart: JSON.parse(localStorage.getItem('cart')) || [],
+      tipos: [],
     }
   },
-  actions: {
-    addMessage(text){
-      this.messages.push(text);
-    },
-    deleteMessage(text){
-      this.messages = this.messages.filter((item) => item !== text);
-    },
-    addBookFromCart(book){
-      if(this.cart.find((item) => item.id === book.id)){
-        this.addMessage("No se ha añadido el libro con id \"" + book.id + "\" a la cesta, por que ya esta añadido");
-      } else {
-        this.cart.push(book);
-        localStorage.setItem('cart', JSON.stringify(this.cart));
-        this.addMessage("Se ha añadido el libro con id \"" + book.id + "\" a la cesta");
-      }
-    },
-    deleteBookFromCart(idBook) {
-      this.cart = this.cart.filter((item) => item.id !== idBook);
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-    },
-    clearCart(){
-      this.cart = [];
-      localStorage.setItem('cart', JSON.stringify(this.cart));
-    },
-    async loadModules() {
-      const repositoryModules = new ModulesRepository();
-      this.modules = await repositoryModules.getAllModules();
-    }
-  },
+
   getters: {
-    getModuleById: (state) => (code) => state.modules.find((item) => item.code === code),
-    getBookByIdBookFromCart: (state) => (idBook) => state.cart.find((item) => item.id === idBook),
+    getTipoByCode: (state) => (code) => state.tipos.find((item) => item.cod === code) || {},
+  },
+
+  actions: {
+    getTipoFromFormat(code){
+      return `<span class="material-symbols-outlined">${(this.tipos.find((item) => item.cod === code) || {}).icono}</span>`;
+    },
+    setMessageAction(newValue) {
+      if (this.debug) console.log('setMessageAction triggered with ', newValue)
+      this.messages.push(newValue)
+    },
+    clearMessageAction(index) {
+      if (this.debug) console.log('clearMessageAction triggered with ', index)
+      this.messages.splice(index, 1)
+    },
+    async loadTipos() {
+      const repository = new TiposRepository()
+      try {
+        this.tipos = await repository.getAllTipos()
+      } catch (error) {
+        this.setMessageAction(error.message)
+      }
+    }
   }
-});
+})
